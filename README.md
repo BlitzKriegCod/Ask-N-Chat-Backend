@@ -1,33 +1,22 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Título: Desarrollo de una Plataforma de Preguntas y Respuestas Online con Soporte de Chat en Tiempo Real
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descripción
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este proyecto se centra en la construcción de una API REST utilizando **NestJS**, diseñada para facilitar la creación de una plataforma de preguntas y respuestas inspirada en Stack Overflow, enfocada específicamente hacia nuestra comunidad de desarrolladores. La plataforma busca promover el intercambio de conocimientos y experiencias entre los miembros de la comunidad, fomentando así un ambiente de aprendizaje colaborativo y apoyo mutuo.
 
-## Description
+## Características Principales
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### API REST con NestJS 🌐
+Implementación de una API robusta y escalable que maneja todas las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) relacionadas con preguntas, respuestas, usuarios y salas de chat.
+
+### Soporte para Web Sockets ⚡
+Incorporación de Web Sockets para permitir la creación de salas de chat en tiempo real, facilitando la comunicación instantánea entre los usuarios.
+
+### UI/UX con Angular 🔨
+Hasta ahora solo tengo en mente la tecnologia que empleare tratandose esta de **Angular**, pero estoy abierto a cualquier sugerencia.
+
 
 ## Installation
-
 ```bash
 $ npm install
 ```
@@ -58,16 +47,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Contribuciones
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Estoy abierto a contribuciones de todos los interesados, especialmente aquellos con experiencia en NestJS, desarrollo de APIs REST, Angular y tecnologías relacionadas con Web Sockets. 

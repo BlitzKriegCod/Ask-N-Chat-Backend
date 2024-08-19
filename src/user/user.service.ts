@@ -8,17 +8,18 @@ import { User } from 'src/schemas/user.schema';
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new this.userModel(createUserDto);
     return user.save();
   }
 
-  findAll() {
+  async findAll(): Promise<User[]> {
     return this.userModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string): Promise<User> {
+    const user = await this.userModel.findById(id);
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
