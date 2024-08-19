@@ -13,7 +13,7 @@ Implementación de una API robusta y escalable que maneja todas las operaciones 
 Incorporación de Web Sockets para permitir la creación de salas de chat en tiempo real, facilitando la comunicación instantánea entre los usuarios.
 
 ### UI/UX con Angular 🔨
-Hasta ahora solo tengo en mente la tecnologia que empleare tratandose esta de **Angular**, pero estoy abierto a cualquier sugerencia.
+Hasta ahora solo tengo en mente la tecnologia que empleare, tratandose esta de **Angular**, pero estoy abierto a cualquier sugerencia.
 
 
 ## Installation
