@@ -9,26 +9,35 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/schemas/user.schema';
 import { HashPassword } from 'src/helpers/bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const existingUser = await this.userModel.findOne({
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private jwt: JwtService,
+  ) {}
+  async create(createUserDto: CreateUserDto): Promise<{ [key: string]: any }> {
+    const extuser = await this.userModel.findOne({
       $or: [{ name: createUserDto.name }, { email: createUserDto.email }],
     });
 
-    if (existingUser) {
+    if (extuser) {
       throw new ConflictException(
-        'El nombre o el correo electrónico ya están en uso',
+        'El nombre o el correo electronico ya estan en uso',
       );
     }
     const { password } = createUserDto;
     const hash = HashPassword(password);
     createUserDto.password = hash;
     const userCreated = new this.userModel(createUserDto);
+    const { _id, name, email, google, img, status, role } = userCreated;
+    const payload = { id: _id, name, email, google, img, status, role };
+    const authorization = await this.jwt.signAsync(payload);
+
     try {
-      return userCreated.save();
+      userCreated.save();
+      return { user: payload, authorization };
     } catch (error) {
       throw new InternalServerErrorException();
     }
