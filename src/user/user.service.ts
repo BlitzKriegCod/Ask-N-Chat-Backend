@@ -17,7 +17,9 @@ export class UserService {
     @InjectModel(User.name) private userModel: Model<User>,
     private jwt: JwtService,
   ) {}
-  async create(createUserDto: CreateUserDto): Promise<{ [key: string]: any }> {
+  async create(
+    createUserDto: CreateUserDto,
+  ): Promise<{ user: any; authorization: string }> {
     const extuser = await this.userModel.findOne({
       $or: [{ name: createUserDto.name }, { email: createUserDto.email }],
     });

@@ -8,19 +8,26 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
+  Res,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindByIdDto } from './dto/FindById.dto';
-
+import { Response } from 'express';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+    const body = await this.userService.create(createUserDto);
+    res.cookie('sessionId', body.user.id, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24,
+    });
+    res.setHeader('authorization', body.authorization);
+    res.send(body.user);
   }
 
   @Get()
@@ -39,7 +46,6 @@ export class UserController {
     @Param('id') params: FindByIdDto,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    console.log(params.id)
     return this.userService.update(params.id, updateUserDto);
   }
 
