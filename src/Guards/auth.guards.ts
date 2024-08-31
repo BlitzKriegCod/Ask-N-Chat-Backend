@@ -4,25 +4,41 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwt: JwtService) {}
+  constructor(
+    private jwt: JwtService,
+    private conf: ConfigService,
+    private reflector: Reflector,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-    if (!token) {
-      throw new UnauthorizedException();
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (isPublic) {
+      return true;
     }
+    if (!token) {
+      throw new UnauthorizedException('adasdasd');
+    }
+    const secret = this.conf.get<string>('secret');
     try {
       const payload = await this.jwt.verifyAsync(token, {
-        secret: 'MEPIKAELANO!!!',
+        secret,
       });
-      request['user'] = payload;
+
+      request['userE'] = payload;
     } catch {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Error en Logout');
     }
     return true;
   }

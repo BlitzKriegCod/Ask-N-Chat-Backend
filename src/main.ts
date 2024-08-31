@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import * as session from 'express-session';
 import * as cookieParser from 'cookie-parser';
 import { SessionConfig } from './user/session.config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -44,6 +45,15 @@ async function bootstrap() {
   const sessionConfig = app.get(SessionConfig);
   app.use(session(sessionConfig.getSession()));
   app.use(cookieParser('asdasdadasdasdasdc23423423qqwasdgs'));
+
+  const config = new DocumentBuilder()
+    .setTitle(`Ask'N'Chat Endpoints`)
+    .setDescription(`The Ask'N'Chat API description`)
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);
 }

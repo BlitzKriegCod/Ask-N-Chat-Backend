@@ -18,16 +18,13 @@ export class AuthService {
     private jwt: JwtService,
   ) {}
   async logout(req: Request): Promise<{ msg: string }> {
-    const user = req['user'];
-
+    const user = req['userE'];
+    const id = user.id;
     try {
-      await this.userModel
-        .findByIdAndUpdate(user._id, { status: false })
-        .exec();
+      await this.userModel.findByIdAndUpdate(id, { status: false }).exec();
 
       return { msg: 'Cierre de sesión exitoso' };
     } catch (error) {
-      console.error('Error al cerrar sesion:', error);
       throw new UnprocessableEntityException(
         'No se pudo cerrar sesión. Intrntalo de nuevo mas tarde.',
       );
@@ -36,7 +33,6 @@ export class AuthService {
 
   async login(lgDto: LoginDto): Promise<{ authorization: string; id: string }> {
     const user = await this.userModel.findOne({ name: lgDto.name });
-
     if (!user) {
       throw new UnauthorizedException('Usuario o contraseña incorrectos');
     }

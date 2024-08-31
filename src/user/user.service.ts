@@ -10,12 +10,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/schemas/user.schema';
 import { HashPassword } from 'src/helpers/bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     private jwt: JwtService,
+    private conf: ConfigService,
   ) {}
   async create(
     createUserDto: CreateUserDto,
@@ -35,7 +37,9 @@ export class UserService {
     const userCreated = new this.userModel(createUserDto);
     const { _id, name, email, google, img, status, role } = userCreated;
     const payload = { id: _id, name, email, google, img, status, role };
-    const authorization = await this.jwt.signAsync(payload);
+    const authorization = await this.jwt.signAsync(payload, {
+      secret: this.conf.get<string>('secret'),
+    });
 
     try {
       userCreated.save();
