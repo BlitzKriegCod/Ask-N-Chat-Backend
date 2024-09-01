@@ -1,17 +1,26 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 
 export type QuestDocument = HydratedDocument<Quest>;
 
-@Schema({ autoIndex: true })
+@Schema()
 export class Quest {
-  @Prop({ required: true })
-  userId: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' })
+  userId: mongoose.Schema.Types.ObjectId;
   @Prop({ required: true, maxlength: 40, minlength: 4 })
   title: string;
   @Prop({ required: true })
   description: string;
-  @Prop()
-  AskForThisQuestion: string[];
+  @Prop({ required: true })
+  expected: string;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Answer' }] })
+  AnswersForThisQuestion: mongoose.Schema.Types.ObjectId[];
+  @Prop({ type: [{ type: String }] })
+  Tags: string[];
+  @Prop({ default: Date.now })
+  createdAt: Date;
+
+  @Prop({ default: Date.now, update: Date.now })
+  updatedAt: Date;
 }
 export const QuestSchema = SchemaFactory.createForClass(Quest);
